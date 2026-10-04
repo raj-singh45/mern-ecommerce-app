@@ -22,13 +22,13 @@ export const useAuth = () => {
       console.log(data);
       let response = await loginUserApi(data);
       dispatch(addUser(response));
-      console.log(response.data.accessToken)
+      // console.log(response.data.accessToken)
       toast.success("user loggedIn successfully");
       navigate("/main")
+      reset()
     } catch (error) {
       toast.error("Invalid crediantials")
-      console.log("error in loginApi", error.response?.data);
-      console.log("status", error.response?.status);
+      reset()
     }
   };
 

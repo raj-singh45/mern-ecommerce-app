@@ -4,7 +4,7 @@ export const loginUserApi = async (crediantials) => {
   try {
     let res = await api.post("/auth/login", crediantials);
 
-    console.log(res.data);
+    // console.log(res.data);
 
     localStorage.setItem(
       "accessToken",(res.data.data.accessToken),
@@ -18,7 +18,7 @@ export const loginUserApi = async (crediantials) => {
 
 export const hydrationApi = async () => {
   let token = localStorage.getItem("accessToken");
-  console.log(token)
+//   console.log(token)
 
   try {
     let res = await api.get("/auth/me", {

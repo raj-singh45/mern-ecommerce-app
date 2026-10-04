@@ -11,28 +11,26 @@ import MainProtected from "./protected/MainProtected";
 import ProductPage from "../features/product/ui/pages/ProductPage";
 import MainLayout from "../app/layout/MainLayout";
 
-
-
 const AppRoutes = () => {
   let dispatch = useDispatch();
 
- useEffect(() => {
-  (async () => {
-    try {
-      const response = await hydrationApi();
-      dispatch(addUser(response));
-    } catch (error) {
-      console.log("User not logged in");
-     } //finally {
-    //   dispatch(setLoading(false));
-    // }
-  })();
-}, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await hydrationApi();
+        dispatch(addUser(response));
+      } catch (error) {
+        console.log("User not logged in");
+      } //finally {
+      //   dispatch(setLoading(false));
+      // }
+    })();
+  }, []);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AuthLayout/>,
+      element: <AuthLayout />,
       children: [
         {
           path: "",
@@ -53,7 +51,7 @@ const AppRoutes = () => {
 
     {
       path: "/main",
-      element: <MainLayout/>,
+      element: <MainLayout />,
       children: [
         {
           path: "",
