@@ -8,7 +8,7 @@ router.post("/register",registerController)
 router.post("/login",loginController)
 router.get("/me",authenticate,getMe)
 router.get("/refresh-token", refreshController)
-router.get("/logout", logOutController)
+router.post("/logOut", logOutController)
 
 
 export default router ; 

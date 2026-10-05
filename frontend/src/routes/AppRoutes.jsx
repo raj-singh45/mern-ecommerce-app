@@ -6,10 +6,12 @@ import AuthLayout from "../app/layout/AuthLayout";
 import PublicProtected from "./protected/PublicProteced";
 import LoginPage from "../features/auth/ui/pages/LoginPage";
 import RegisterPage from "../features/auth/ui/pages/RegisterPage";
-import { addUser } from "../features/auth/state/authSlice";
+import { addUser, setLoading } from "../features/auth/state/authSlice";
 import MainProtected from "./protected/MainProtected";
 import ProductPage from "../features/product/ui/pages/ProductPage";
 import MainLayout from "../app/layout/MainLayout";
+import AboutPage from "../features/product/ui/pages/AboutPage";
+import ContactPage from "../features/product/ui/components/Contact.Page";
 
 const AppRoutes = () => {
   let dispatch = useDispatch();
@@ -21,9 +23,8 @@ const AppRoutes = () => {
         dispatch(addUser(response));
       } catch (error) {
         console.log("User not logged in");
-      } //finally {
-      //   dispatch(setLoading(false));
-      // }
+        dispatch(setLoading(false));
+      }
     })();
   }, []);
 
@@ -60,6 +61,14 @@ const AppRoutes = () => {
             {
               path: "",
               element: <ProductPage />,
+            },
+            {
+              path: "about",
+              element: <AboutPage />,
+            },
+             {
+              path: "contact",
+              element: <ContactPage />,
             },
           ],
         },

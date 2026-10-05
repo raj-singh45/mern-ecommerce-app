@@ -3,12 +3,6 @@ import productModel from "../model/product.model.js";
 export const getProductsController = async (req, res) => {
   const product = await productModel.find();
 
-  if (!product || product.length === 0) {
-    return res.status(404).json({
-      message: "Products is empty",
-    });
-  }
-
   res.status(200).json({
     message: "Product fetch successfully",
     data: {
@@ -28,6 +22,7 @@ export const createProductsController = async (req, res) => {
   res.status(201).json({
     data: {
       product: {
+        _id: newProduct._id,
         title: newProduct.title,
         description: newProduct.description,
         image: newProduct.image,
@@ -66,10 +61,10 @@ export const updateProductsController = async (req, res) => {
     });
   }
 
-  res.status(201).json({
+  res.status(200).json({
     message: "product update successfully",
     data: {
-      updatedProduct,
+    product :  updatedProduct,
     },
   });
 };

@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { loginUserApi } from "../api/AuthApi";
+import { loginUserApi, logOutApi } from "../api/AuthApi";
 import { useDispatch } from "react-redux";
-import { addUser } from "../state/authSlice";
+import { addUser, removeUser } from "../state/authSlice";
 import { toast } from "react-toastify";
+import { api } from "../../../api/config/api";
 
 export const useAuth = () => {
   let navigate = useNavigate();
@@ -18,11 +19,12 @@ export const useAuth = () => {
 
   const registerForm = async (data) => {};
   const loginForm = async (data) => {
+    console.log("LOGIN FORM CALLED");
     try {
-      console.log(data);
-      let response = await loginUserApi(data);
+      console.log(data); 
+      const response = await loginUserApi(data);                                       
       dispatch(addUser(response));
-      // console.log(response.data.accessToken)
+      console.log(response.data.accessToken)
       toast.success("user loggedIn successfully");
       navigate("/main")
       reset()
@@ -32,6 +34,21 @@ export const useAuth = () => {
     }
   };
 
+ const logOut = async () => {
+  try {
+    await logOutApi();
+
+    localStorage.removeItem("accessToken");
+    delete api.defaults.headers.common["Authorization"];
+    dispatch(removeUser())
+    console.log("logout successfull")
+    navigate("/");
+  } catch (error) {
+    console.log("Error in logout", error);
+  }
+};
+
+
   return {
     navigate,
     registerForm,
@@ -39,5 +56,6 @@ export const useAuth = () => {
     register,
     errors,
     handleSubmit,
+    logOut
   };
 };
